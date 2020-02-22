@@ -4,8 +4,8 @@ import logger from "redux-logger";
 import reducers from "./reducers";
 
 export default function configureStore() {
-  const middleware = applyMiddleware([logger, thunk]);
+  const middleware = [logger, thunk];
   const rootReducers = combineReducers(reducers);
-  const store = createStore(rootReducers, middleware);
+  const store = createStore(rootReducers, applyMiddleware(...middleware));
   return store;
 }
