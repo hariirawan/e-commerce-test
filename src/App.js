@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import Home from "./views/Home";
 
 function App() {
-  const store = useSelector(state => state);
-  console.log(store);
-
-  return <div className="App">E-Commerce</div>;
+  return (
+    <div>
+      <Home />
+    </div>
+  );
 }
 
 export default App;
