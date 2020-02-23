@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" elevation="0">
+      <AppBar position="fixed" elevation="0">
         <Container maxWidth="xs">
           <Toolbar variant="dense">
             <IconButton
