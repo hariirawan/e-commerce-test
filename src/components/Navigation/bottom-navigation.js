@@ -7,6 +7,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import RssFeedIcon from "@material-ui/icons/RssFeed";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -19,23 +20,32 @@ const useStyles = makeStyles({
 
 export default function Navigation(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const history = useHistory();
+  const [value, setValue] = React.useState("/");
+
+  const handleChange = (_, value) => {
+    setValue(value);
+    history.push(value);
+  };
 
   return (
     <div className={classes.root}>
       <Container maxWidth="xs">
-        <BottomNavigation
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-          showLabels
-        >
-          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-          <BottomNavigationAction label="Feed" icon={<RssFeedIcon />} />
-          <BottomNavigationAction label="Cart" icon={<ShoppingBasketIcon />} />
+        <BottomNavigation value={value} onChange={handleChange} showLabels>
+          <BottomNavigationAction label="Home" value="/" icon={<HomeIcon />} />
+          <BottomNavigationAction
+            label="Feed"
+            value="/feed"
+            icon={<RssFeedIcon />}
+          />
+          <BottomNavigationAction
+            label="Cart"
+            value="/cart"
+            icon={<ShoppingBasketIcon />}
+          />
           <BottomNavigationAction
             label="Profile"
+            value="/profile"
             icon={<AccountCircleIcon />}
           />
         </BottomNavigation>
