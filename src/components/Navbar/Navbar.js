@@ -24,7 +24,11 @@ export default function Navbar(props) {
     if (location.pathname === "/search") {
       inputSearch.current.focus();
     }
-  }, [location.pathname]);
+
+    return () => {
+      search_product(dispatch, false, "");
+    };
+  }, [location.pathname, dispatch]);
 
   const onChangeSearch = () => {
     history.push("/search");
@@ -42,7 +46,7 @@ export default function Navbar(props) {
   const renderIcon = () => {
     if (location.pathname === "/search") {
       return (
-        <Link to="/">
+        <Link to="/" style={{ color: "white" }}>
           <IconButton
             edge="start"
             className={classes.menuButton}
