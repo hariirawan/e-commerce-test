@@ -1,13 +1,17 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import { data } from "./data";
 import ProductList from "./product-list";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Products() {
+  const store = useSelector(state => state.listProduct);
   return (
     <Container style={{ paddingBottom: "60px" }}>
-      {data.map(value => (
-        <ProductList key={value.id} {...value} />
+      {store.productPromo.map((value, key) => (
+        <Link to={`/product-detail/${value.id}`} key={key}>
+          <ProductList {...value} />
+        </Link>
       ))}
     </Container>
   );
