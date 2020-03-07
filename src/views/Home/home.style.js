@@ -15,8 +15,7 @@ export const styles = {
   },
   slideContainer: {
     padding: "0 10px",
-    // border: "1px solid red",
-    width: "100px",
+    maxWidth: "100px",
     marginRight: 10
   },
   slide: {
