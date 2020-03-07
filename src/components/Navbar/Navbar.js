@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Container from "@material-ui/core/Container";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -18,6 +18,7 @@ export default function Navbar(props) {
   const location = useLocation();
   const inputSearch = useRef(null);
   const dispatch = useDispatch();
+  const [loved, setloved] = useState(false);
 
   useEffect(() => {
     if (location.pathname === "/search") {
@@ -57,8 +58,9 @@ export default function Navbar(props) {
         <IconButton
           edge="start"
           className={classes.menuButton}
-          color="inherit"
+          color={loved ? "secondary" : "inherit"}
           aria-label="menu"
+          onClick={() => setloved(!loved)}
         >
           <FavoriteBorderIcon />
         </IconButton>
