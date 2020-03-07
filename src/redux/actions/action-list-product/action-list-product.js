@@ -1,7 +1,8 @@
 import Axios from "axios";
 import {
   ACTION_SEARCH_PRODUCT,
-  ACTION_GET_PRODUCT
+  ACTION_GET_PRODUCT,
+  ACTION_GET_DETAIL_PRODUCT
 } from "./action-type-list-product";
 
 export const search_product = (dispatch, isSearch, value) => {
@@ -20,4 +21,8 @@ export const get_product = dispatch => {
       }
     }
   );
+};
+
+export const get_detail_product = (dispatch, id) => {
+  return dispatch({ type: ACTION_GET_DETAIL_PRODUCT, id });
 };
