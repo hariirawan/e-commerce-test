@@ -14,7 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Button from "@material-ui/core/Button";
 import { buyProduct } from "../../redux/actions/action-purchase-history/action-purchase-history";
-import { get_detail_product } from "../../redux/actions/action-list-product/action-list-product";
+import {
+  get_detail_product,
+  handle_like_button
+} from "../../redux/actions/action-list-product/action-list-product";
 
 export default function ProductDetail(props) {
   const classes = useProductDetilStyles();
@@ -30,6 +33,10 @@ export default function ProductDetail(props) {
     get_detail_product(dispatch, param.id);
   }, [dispatch, param]);
 
+  const handleLikeButton = () => {
+    handle_like_button(dispatch);
+  };
+
   const { imageUrl, price, title, description, loved } = store.detailProduct;
   return (
     <Container maxWidth="xs" className={classes.root}>
@@ -44,9 +51,14 @@ export default function ProductDetail(props) {
                 </IconButton>
               </Link>
             </div>
-            <IconButton>
-              <ShareOutlinedIcon />
-            </IconButton>
+            <a
+              href="whatsapp://send?text=The text to share!"
+              data-action="share/whatsapp/share"
+            >
+              <IconButton>
+                <ShareOutlinedIcon />
+              </IconButton>
+            </a>
           </div>
           <CardMedia
             image={imageUrl}
@@ -64,7 +76,12 @@ export default function ProductDetail(props) {
             <Typography gutterBottom variant="h5" component="h5">
               {title}
             </Typography>
-            <IconButton edge="start" color="inherit" aria-label="menu">
+            <IconButton
+              edge="start"
+              color="inherit"
+              color={loved === 1 ? "secondary" : "default"}
+              onClick={handleLikeButton}
+            >
               <FavoriteIcon />
             </IconButton>
           </Grid>
