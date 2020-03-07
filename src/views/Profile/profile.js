@@ -5,11 +5,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import ImageIcon from "@material-ui/icons/Image";
 import { Container, Grid, Typography } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ListProduct() {
   const classes = useStyles();
+  const history = useSelector(state => state.purchaseHistory);
 
   return (
     <Container maxWidth="xs">
@@ -39,14 +40,18 @@ export default function ListProduct() {
         </Grid>
       </Grid>
       <List className={classes.root}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <ImageIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Photos" secondary="Jan 9, 2014" />
-        </ListItem>
+        {history.data.map((data, key) => {
+          return (
+            <Link to={`/product-detail/${data.id}`} key={key}>
+              <ListItem key={key}>
+                <ListItemAvatar>
+                  <Avatar src={data.imageUrl}></Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={data.title} secondary={data.price} />
+              </ListItem>
+            </Link>
+          );
+        })}
       </List>
     </Container>
   );
