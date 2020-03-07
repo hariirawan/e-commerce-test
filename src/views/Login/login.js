@@ -7,16 +7,24 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { useHistory } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import { useStyleLogin } from "./login.style";
+import { useDispatch, useSelector } from "react-redux";
+import { action_login } from "../../redux/actions/action-login/action-login";
 
-export default function Login() {
+export default function Login(props) {
   const classes = useStyleLogin();
-  const history = useHistory();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const store = useSelector(state => state.login);
 
-  const handleLogin = () => {
-    history.push("/");
+  const handleLogin = e => {
+    e.preventDefault();
+    action_login(dispatch);
   };
+
+  if (store.status)
+    return <Redirect to={{ pathname: "/", state: { from: location } }} />;
 
   return (
     <Container component="main" maxWidth="xs">

@@ -1,7 +1,8 @@
 import {
   ACTION_SEARCH_PRODUCT,
   ACTION_GET_PRODUCT,
-  ACTION_GET_DETAIL_PRODUCT
+  ACTION_GET_DETAIL_PRODUCT,
+  LIKE_BUTTON
 } from "../../actions/action-list-product/action-type-list-product";
 
 const initialState = {
@@ -10,7 +11,11 @@ const initialState = {
   category: [],
   productPromo: [],
   detailProduct: {
-    imageUrl: ""
+    imageUrl: "",
+    loved: 0,
+    title: "",
+    description: "",
+    price: ""
   }
 };
 const reducerListProduct = (state = initialState, action) => {
@@ -27,10 +32,18 @@ const reducerListProduct = (state = initialState, action) => {
 
     case ACTION_GET_DETAIL_PRODUCT:
       let detail = state.productPromo.filter(value => value.id === action.id);
-
       return {
         ...state,
         detailProduct: { ...state.detailProduct, ...detail[0] }
+      };
+
+    case LIKE_BUTTON:
+      return {
+        ...state,
+        detailProduct: {
+          ...state.detailProduct,
+          loved: state.detailProduct.loved === 1 ? 0 : 1
+        }
       };
 
     default:
